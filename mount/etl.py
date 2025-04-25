@@ -1,16 +1,17 @@
+import json
 import pandas as pd
-from datetime import datetime
-from pytz import timezone
 
-# Import the contents of dummy.csv
-df = pd.read_csv('dummy.csv')
+# Task 1: Create a CSV with ordered data
+def create_time_series_results(input_file, output_file):
+        
+    with open(input_file, 'r') as file:
+        data = json.load(file)
+        scores = data['scores']
+        df = pd.DataFrame(scores)
+        df = df.sort_values(by="timestamp")
+        df.to_csv(output_file, index=False)
+    print(f"Time-series results saved to {output_file}")
 
-# Open the local file 'output.txt' and truncate it
-with open('output.txt', 'w') as file:
-    # Add the current time in 12-hour format
-    pacific_time = datetime.now(timezone('US/Pacific'))
-    current_time = pacific_time.strftime('%I:%M:%S %p')
-    file.write(f"Current Time: {current_time}\n\n")
-    
-    # Add the contents of dummy.csv
-    file.write(df.to_string(index=False))
+create_time_series_results('scores.json', 'time-series-results.csv')
+
+
