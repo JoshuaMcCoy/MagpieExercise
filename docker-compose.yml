@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  pythonEnv:
+    image: python:3.9
+    container_name: pythonEnv
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./mount:/app
+    working_dir: /app
+    stdin_open: true
+    tty: true
