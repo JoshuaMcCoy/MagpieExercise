@@ -34,6 +34,12 @@ def create_scores_results(scores_file, skills_file, output_csv, output_image):
     grouped['skill_numeric'] = pd.factorize(grouped['skill'])[0]
     ax.scatter(grouped['skill_numeric'], grouped['count'], grouped['score_average'], c='b', marker='o')
     
+    ax.set_xlabel('Skill')
+    ax.set_ylabel('Count')
+    ax.set_zlabel('Score Average')
+    ax.set_xticks(grouped['skill_numeric'])
+    ax.set_xticklabels(grouped['skill'])
+    
     plt.savefig(output_image)
     print(f"Visualization saved to {output_image}")
 
