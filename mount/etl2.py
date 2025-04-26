@@ -15,6 +15,27 @@ def create_scores_results(scores_file, skills_file, output_csv, output_image):
         #some scores are not numbers, I see 'cat' and null, ive decided to coerce them to NaN for now (not ideal)
     print(df_scores)
     
+    # Group by skill and calculate count and mean
+    grouped = df_scores.groupby("skill").agg(
+        count=("score", "count"),
+        score_average=("score", "mean")
+    ).reset_index()
+    
+    # Sort by skill ascending
+    grouped = grouped.sort_values(by="skill", ascending=True)
+    grouped.to_csv(output_csv, index=False)
+    print(f"Scores results saved to {output_csv}")
+
+
+    #-----------------------------------------------------begin visualization
+    fig = plt.figure(figsize=(10, 6))
+    ax = fig.add_subplot(111, projection='3d')
+    
+    grouped['skill_numeric'] = pd.factorize(grouped['skill'])[0]
+    ax.scatter(grouped['skill_numeric'], grouped['count'], grouped['score_average'], c='b', marker='o')
+    
+    plt.savefig(output_image)
+    print(f"Visualization saved to {output_image}")
 
 create_scores_results(
         "scores.json",
