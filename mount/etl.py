@@ -13,5 +13,3 @@ def create_time_series_results(input_file, output_file):
     print(f"Time-series results saved to {output_file}")
 
 create_time_series_results('scores.json', 'time-series-results.csv')
-
-
