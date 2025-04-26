@@ -12,4 +12,4 @@ def create_time_series_results(input_file, output_file):
         df.to_csv(output_file, index=False)
     print(f"Time-series results saved to {output_file}")
 
-create_time_series_results('scores.json', 'time-series-results.csv')
+create_time_series_results('scores.json', './results/time-series-results.csv')
